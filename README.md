@@ -1,84 +1,55 @@
-argparse
-========
+# es-errors <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
 
-[![Build Status](https://secure.travis-ci.org/nodeca/argparse.svg?branch=master)](http://travis-ci.org/nodeca/argparse)
-[![NPM version](https://img.shields.io/npm/v/argparse.svg)](https://www.npmjs.org/package/argparse)
+[![github actions][actions-image]][actions-url]
+[![coverage][codecov-image]][codecov-url]
+[![License][license-image]][license-url]
+[![Downloads][downloads-image]][downloads-url]
 
-CLI arguments parser for node.js, with [sub-commands](https://docs.python.org/3.9/library/argparse.html#sub-commands) support. Port of python's [argparse](http://docs.python.org/dev/library/argparse.html) (version [3.9.0](https://github.com/python/cpython/blob/v3.9.0rc1/Lib/argparse.py)).
+[![npm badge][npm-badge-png]][package-url]
 
-**Difference with original.**
+A simple cache for a few of the JS Error constructors.
 
-- JS has no keyword arguments support.
-  -  Pass options instead: `new ArgumentParser({ description: 'example', add_help: true })`.
-- JS has no python's types `int`, `float`, ...
-  - Use string-typed names: `.add_argument('-b', { type: 'int', help: 'help' })`.
-- `%r` format specifier uses `require('util').inspect()`.
+## Example
 
-More details in [doc](./doc).
+```js
+const assert = require('assert');
 
+const Base = require('es-errors');
+const Eval = require('es-errors/eval');
+const Range = require('es-errors/range');
+const Ref = require('es-errors/ref');
+const Syntax = require('es-errors/syntax');
+const Type = require('es-errors/type');
+const URI = require('es-errors/uri');
 
-Example
--------
-
-`test.js` file:
-
-```javascript
-#!/usr/bin/env node
-'use strict';
-
-const { ArgumentParser } = require('argparse');
-const { version } = require('./package.json');
-
-const parser = new ArgumentParser({
-  description: 'Argparse example'
-});
-
-parser.add_argument('-v', '--version', { action: 'version', version });
-parser.add_argument('-f', '--foo', { help: 'foo bar' });
-parser.add_argument('-b', '--bar', { help: 'bar foo' });
-parser.add_argument('--baz', { help: 'baz bar' });
-
-console.dir(parser.parse_args());
+assert.equal(Base, Error);
+assert.equal(Eval, EvalError);
+assert.equal(Range, RangeError);
+assert.equal(Ref, ReferenceError);
+assert.equal(Syntax, SyntaxError);
+assert.equal(Type, TypeError);
+assert.equal(URI, URIError);
 ```
 
-Display help:
+## Tests
+Simply clone the repo, `npm install`, and run `npm test`
 
-```
-$ ./test.js -h
-usage: test.js [-h] [-v] [-f FOO] [-b BAR] [--baz BAZ]
+## Security
 
-Argparse example
+Please email [@ljharb](https://github.com/ljharb) or see https://tidelift.com/security if you have a potential security vulnerability to report.
 
-optional arguments:
-  -h, --help         show this help message and exit
-  -v, --version      show program's version number and exit
-  -f FOO, --foo FOO  foo bar
-  -b BAR, --bar BAR  bar foo
-  --baz BAZ          baz bar
-```
-
-Parse arguments:
-
-```
-$ ./test.js -f=3 --bar=4 --baz 5
-{ foo: '3', bar: '4', baz: '5' }
-```
-
-
-API docs
---------
-
-Since this is a port with minimal divergence, there's no separate documentation.
-Use original one instead, with notes about difference.
-
-1. [Original doc](https://docs.python.org/3.9/library/argparse.html).
-2. [Original tutorial](https://docs.python.org/3.9/howto/argparse.html).
-3. [Difference with python](./doc).
-
-
-argparse for enterprise
------------------------
-
-Available as part of the Tidelift Subscription
-
-The maintainers of argparse and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use. [Learn more.](https://tidelift.com/subscription/pkg/npm-argparse?utm_source=npm-argparse&utm_medium=referral&utm_campaign=enterprise&utm_term=repo)
+[package-url]: https://npmjs.org/package/es-errors
+[npm-version-svg]: https://versionbadg.es/ljharb/es-errors.svg
+[deps-svg]: https://david-dm.org/ljharb/es-errors.svg
+[deps-url]: https://david-dm.org/ljharb/es-errors
+[dev-deps-svg]: https://david-dm.org/ljharb/es-errors/dev-status.svg
+[dev-deps-url]: https://david-dm.org/ljharb/es-errors#info=devDependencies
+[npm-badge-png]: https://nodei.co/npm/es-errors.png?downloads=true&stars=true
+[license-image]: https://img.shields.io/npm/l/es-errors.svg
+[license-url]: LICENSE
+[downloads-image]: https://img.shields.io/npm/dm/es-errors.svg
+[downloads-url]: https://npm-stat.com/charts.html?package=es-errors
+[codecov-image]: https://codecov.io/gh/ljharb/es-errors/branch/main/graphs/badge.svg
+[codecov-url]: https://app.codecov.io/gh/ljharb/es-errors/
+[actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/ljharb/es-errors
+[actions-url]: https://github.com/ljharb/es-errors/actions
