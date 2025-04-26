@@ -1,3 +1,3 @@
-declare const Error: ErrorConstructor;
+declare function hasNativeSymbols(): boolean;
 
-export = Error;
+export = hasNativeSymbols;
